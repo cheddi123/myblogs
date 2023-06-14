@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult,checkSchema } = require("express-validator")
 const routes = express.Router();
-const { postComment, allComments, commentById,userComments } = require("../controllers/commentControllers")
+const { postComment, allComments, commentById,userComments,getForm } = require("../controllers/commentControllers")
 const {validateComment}= require("../validation/validate")
 const auth= require('../middleware/auth')
 
@@ -23,6 +23,9 @@ routes.get("/:id", commentById)
 // find all commments by user
 
 routes.get("/user/all",auth,userComments)
+
+// Get comment form
+routes.get("/new/form",getForm)
 
  
 module.exports = routes 

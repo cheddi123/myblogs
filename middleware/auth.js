@@ -6,7 +6,8 @@ function auth(req,res,next){
     
     if(!token){
         console.log("Access denied: No token provided");
-       return res.status(401).send("Access denied: No token provided");
+       //return res.status(401).send("Access denied: No token provided");
+       return res.status(400).render("login.ejs")
     } 
     try {
         const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY)

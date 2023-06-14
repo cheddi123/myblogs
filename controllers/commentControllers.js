@@ -79,4 +79,9 @@ const deleteComment = async(req,res)=>{
     }
 }
 
-module.exports = { postComment, allComments, commentById,userComments } 
+// Get comment form
+const getForm =(req,res)=>{
+    res.render("commentForm.ejs")
+}
+
+module.exports = { postComment, allComments, commentById,userComments,getForm} 

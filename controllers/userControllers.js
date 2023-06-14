@@ -66,7 +66,7 @@ const login = async (req, res) => {
 //Get all users
 const getAllUsers = async (req, res) => {
     const users = await User.find({});
-    if (!users) return res.json("There are no users in the database")
+    if (!users) return res.json("There are no user in the database")
     res.json(users);
 }
 
