@@ -1,0 +1,9 @@
+body{background-color: rgb(162, 234, 243);}
+
+.header{color: rgb(49, 16, 87);font-size: 2em;border: 2px solid red;
+    margin: 0 auto;width: 500px; display: block;text-align: center;
+}
+
+h3{margin: 0;text-align: center;background-color: aqua;display:flexbox;align-content: center;}
+
+div{align-items: center;width: -500px;}
