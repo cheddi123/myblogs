@@ -32,13 +32,13 @@ const userCommentRoutes= require("./routes/userCommentRoutes")
 const connect = async () => { 
     try {
         
-        await mongoose.connect('mongodb+srv://cheddi007:cheddi6660@comments.tsvjveh.mongodb.net/')
+        await mongoose.connect(process.env.MONGO_SECRET_KEY)
        
         console.log("Connected to Mongo DB...") 
    
     } catch (error) {
         console.log(error.message) 
-    }
+    }  
 
 }
 connect()
@@ -159,6 +159,8 @@ const response = async () => {
 
 //response()
 
-app.listen(3000);
+app.listen(3000,()=>{
+    console.log("Server running on port 3000")
+});
 
 
