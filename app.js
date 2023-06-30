@@ -1,6 +1,9 @@
 require("dotenv").config()
+const flash = require('connect-flash');
+const session = require('express-session')
 const { faker } = require('@faker-js/faker')
 const cookieParser = require('cookie-parser')
+var methodOverride = require('method-override')
 const express = require('express')
 
 const path = require('path')
@@ -12,12 +15,17 @@ if(!process.env.JWT_SECRET_KEY){
     process.exit(1);
 }
  
-const { config } = require("dotenv")
+const { config } = require("dotenv") 
 
+// override with POST having ?_method=DELETE 
+app.use(methodOverride('_method'))
+ 
 //Routes
 //const blogRoutes = require('./routes/blogRoutes')
 const commentRoutes = require("./routes/commentsRoutes")
 const userRoutes = require("./routes/userRoutes")
+const userAuth = require("./middleware/userAuth")
+const userCommentRoutes= require("./routes/userCommentRoutes")
 
 
  
@@ -56,17 +64,29 @@ const people = {
 app.get('/home', (req, res) => {
     console.log(__dirname)
     console.log(path.basename(__dirname))
-    res.render('home.ejs')
-  
-})  
+    
+    res.render('home.ejs')      
+    
+})   
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser())
+app.use(session({
+    secret:process.env.SESSION_SECRET_KEY,
+    cookie:{maxAge:6000}, 
+    saveUninitialized:false,
+    resave:false
+}))  
+app.use(flash());
+  
+// Get Global variable 
+app.use(userAuth)
  
 // Customed Middleware
 app.use('/hello', (req, res, next) => {
-    console.log("i am using a middleware")
+    console.log("i am using a middleware") 
     next();
 });
 
@@ -75,6 +95,7 @@ app.use('/comment', commentRoutes)
 // app.use("/", blogRoutes)
 app.use("/user", userRoutes)
 //app.use("/auth", authRoutes);
+app.use("/userComment",userCommentRoutes)
 app.use((req, res) => {
     res.status(404).send('Page not found ')
 })

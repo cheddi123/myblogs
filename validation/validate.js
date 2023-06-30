@@ -4,4 +4,7 @@ const validateComment = checkSchema({
     comment:{trim:true,notEmpty:true,errorMessage:"Comment is required"}
 })
 
-module.exports = {validateComment};
+const validateUserComment =  checkSchema({
+    userComment:{trim:true,notEmpty:true,errorMessage:"Comment is required"}
+})
+module.exports = {validateComment,validateUserComment};

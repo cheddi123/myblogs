@@ -1,0 +1,122 @@
+<%- include('partials/header.ejs') -%>
+
+    <body>
+        <%- include('partials/navbar.ejs') -%>
+
+            <div class="container ">
+                <% if(!comment ){%>
+                    <div class="spinner-border text-primary " role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <% }%>
+
+                        <div class="row ">
+
+                            <div class="col p-0 m-3 ">
+                                <div class=" card bg-secondary-subtle text-bg-success " style="width: 50%;">
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%=comment.title %>
+                                        </h5>
+                                        <strong class="card-text">
+                                            <%= comment.comment %>
+                                        </strong>
+                                        <div class="card-footer  border-success text-white mb-2">Written by <strong
+                                                class="text-capitalize">
+                                                <%= comment.userId.firstName%>
+                                                    <%=comment.userId.lastName %>
+                                            </strong> </div>
+
+
+
+                                        <% comment.usercomment.forEach(comment=>{%>
+                                            <blockquote class="blockquote mb-2 bg-dark text-white-50">
+                                                <p>
+                                                    <%=comment.userComment %>
+                                                </p>
+                                                <footer class="blockquote-footer text-white-75">Written by: <cite
+                                                        title="Source Title">
+                                                        <%= comment.userId.firstName %>
+                                                    </cite></footer>
+                                            </blockquote>
+                                            <%})%>
+
+
+
+                                                <% if(userId==comment.userId._id ) {%>
+                                                    <div class="row row-cols-2">
+
+                                                        <div class="col">
+                                                            <form action="/comment/<%=comment._id%>?_method=DELETE"
+                                                                method="post">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger form-control">
+                                                                    DEL</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col m-0">
+                                                            <form action="/comment/edit/<%=comment._id%>" method="get">
+                                                                <button type="submit"
+                                                                    class="btn btn-warning form-control">
+                                                                    Edit</button>
+                                                                
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+
+
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                            Comment
+                                                        </button>
+                                                        <button class="btn btn-dark m-2"
+                                                                    onclick="history.back()">Go Back</button>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade " id="staticBackdrop"
+                                                            data-bs-backdrop="static" data-bs-keyboard="false"
+                                                            tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog ">
+                                                                <div class="modal-content">
+
+                                                                    <form
+                                                                        action="/comment/user/<%=comment._id%>?_method=PUT"
+                                                                        method="post">
+
+                                                                        <div class="modal-body text-dark">
+
+
+                                                                            <div class="mb-2">
+                                                                                <label for="message-text"
+                                                                                    class="col-form-label">Comment:</label>
+                                                                                <textarea class="form-control"
+                                                                                    id="message-text" name="userComment"
+                                                                                    placeholder="Make a comment..."></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Submit</button>
+                                                                        </div>
+                                                                    </form>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+    </body>
+
+    </html>

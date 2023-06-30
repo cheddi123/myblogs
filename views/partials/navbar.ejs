@@ -1,0 +1,32 @@
+
+
+<nav class="nav bg-dark border-bottom border-bottom-dark text-white sticky-top">
+    <a class="nav-link active " aria-current="page" href="/comment/all">Home</a>
+    <% if(!user){%>
+        <a class="nav-link justify-content-end" href="/user/form">Signin</a>
+        <a href="/user/register" class=" nav nav-link justify-content-end"> Register</a>
+    <%} else {%>
+        <a href="/user/logOut" class=" nav nav-link justify-content-end"> SignOut</a>
+     <% } %>
+
+    
+    <a class="nav-link" href="/comment/new/form">CommentForm</a>
+    
+
+    <% if(user){%>
+        <ul class=" justify-content-end">
+            <li class="nav-item ">
+                <h5>Welcome <%= user %>
+                </h5>
+            </li>
+
+        </ul>
+        <%}%>
+
+
+
+
+
+
+</nav>
+<script src="/custom.js"></script>
